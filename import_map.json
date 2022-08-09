@@ -1,0 +1,7 @@
+{
+  "imports": {
+    "dotenv": "https://deno.land/x/dotenv@v3.2.0/mod.ts",
+    "@linear": "./utils/linear.ts",
+    "@linear/sdk": "https://esm.sh/@linear/sdk@1.22.0"
+  }
+}
