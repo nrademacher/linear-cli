@@ -11,7 +11,14 @@ async function getProjects(): Promise<Project[]> {
   return projects.nodes;
 }
 
-export async function logAllProjects(): Promise<void> {
+async function getActiveProjects(): Promise<Project[]> {
+    const projects = await getProjects()
+  return projects.filter((project) =>
+    project.state === "started"
+  );
+}
+
+export async function printAllProjects(): Promise<void> {
   const projects = await getProjects();
   let projectNumber = 1;
   for (const project of projects) {
@@ -20,16 +27,25 @@ export async function logAllProjects(): Promise<void> {
   }
 }
 
-export async function logActiveProjects(): Promise<void> {
-  const projects = await getProjects();
-  const activeProjects = projects.filter((project) =>
-    project.state === "started"
-  );
+export async function printActiveProjects(): Promise<void> {
+  const activeProjects = await getActiveProjects()
   let projectNumber = 1;
   for (const project of activeProjects) {
     console.info(`${projectNumber}. ${project.name}`);
     projectNumber += 1;
   }
+}
+
+export async function printRandomProject(): Promise<void> {
+    const projects = await getProjects()
+    const randomIdx = Math.floor(Math.random() * projects.length)
+    console.info(projects[randomIdx].name)
+}
+
+export async function printRandomActiveProject(): Promise<void> {
+    const activeProjects = await getActiveProjects()
+    const randomIdx = Math.floor(Math.random() * activeProjects.length)
+    console.info(activeProjects[randomIdx].name)
 }
 
 // Issues
@@ -38,7 +54,7 @@ async function getIssues(): Promise<Issue[]> {
   return issues.nodes;
 }
 
-export async function logAllIssues(): Promise<void> {
+export async function printAllIssues(): Promise<void> {
   const issues = await getIssues();
   let issueNumber = 1;
   for (const issue of issues) {
@@ -47,7 +63,7 @@ export async function logAllIssues(): Promise<void> {
   }
 }
 
-export async function logActiveIssues(): Promise<void> {
+export async function printActiveIssues(): Promise<void> {
   const issues = await getIssues();
   const activeIssues = issues.filter((issue) =>
     !issue.canceledAt && !issue.completedAt
