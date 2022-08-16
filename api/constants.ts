@@ -13,3 +13,6 @@ export const RANDOM_SUB_NAMESPACE_SHORTHAND_ARG = "r";
 export const ACTIVE_FLAG_ARG = "--active";
 export const ACTIVE_FLAG_SHORTHAND_ARG = "-a";
 
+export const BY_PROJECT_FLAG = '--project'
+export const BY_PROJECT_SHORTHAND_FLAG = '-p'
+
