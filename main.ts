@@ -1,6 +1,8 @@
 import {
   ACTIVE_FLAG_ARG,
   ACTIVE_FLAG_SHORTHAND_ARG,
+  BY_PROJECT_FLAG,
+  BY_PROJECT_SHORTHAND_FLAG,
   ISSUES_NAMESPACE_ARG,
   ISSUES_NAMESPACE_SHORHAND_ARG,
   LIST_SUB_NAMESPACE_ARG,
@@ -17,6 +19,7 @@ import {
   printAllIssues,
   printRandomActiveProject,
   printRandomProject,
+  printIssuesByProject,
 } from "@linear";
 
 if (
@@ -28,6 +31,18 @@ if (
     Deno.args[1] === LIST_SUB_NAMESPACE_SHORTHAND_ARG
   ) {
     if (
+      (Deno.args[2] === BY_PROJECT_FLAG || BY_PROJECT_SHORTHAND_FLAG) &&
+      Deno.args[3]
+    ) {
+      if (
+        Deno.args[4] === ACTIVE_FLAG_ARG ||
+        Deno.args[4] === ACTIVE_FLAG_SHORTHAND_ARG
+      ) {
+        await printIssuesByProject(Deno.args[3], true);
+      } else {
+        await printIssuesByProject(Deno.args[3], false);
+      }
+    } else if (
       Deno.args[2] === ACTIVE_FLAG_ARG ||
       Deno.args[2] === ACTIVE_FLAG_SHORTHAND_ARG
     ) {
